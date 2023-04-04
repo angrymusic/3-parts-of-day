@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { StyleSheet, Text, TextInput, Button, View, SafeAreaView, ScrollView } from "react-native";
+import { StyleSheet, Text, TextInput, Button, View, SafeAreaView, ScrollView, TouchableOpacity } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
 export default function Todo(props) {
@@ -9,6 +9,16 @@ export default function Todo(props) {
     return (
         <ScrollView style={styles.container}>
             <Text style={styles.title}>오전</Text>
+            {Object.keys(props.todo).map((key) =>
+                "morning" === props.todo[key].when ? (
+                    <View key={key} style={styles.todo}>
+                        <Text style={styles.todoText}>{props.todo[key].text}</Text>
+                        <TouchableOpacity onPress={() => props.deleteTodo(key)}>
+                            <Text>❌</Text>
+                        </TouchableOpacity>
+                    </View>
+                ) : null
+            )}
             <View style={styles.todos}>
                 <TextInput
                     onChangeText={(e) => setNewMorning(e)}
@@ -22,13 +32,22 @@ export default function Todo(props) {
                     }}
                     returnKeyType="done"
                     value={newMorning}
-                    onPressIn={() => {}}
                     placeholder="+ 할 일"
                     style={styles.input}
                 ></TextInput>
             </View>
 
             <Text style={styles.title}>오후</Text>
+            {Object.keys(props.todo).map((key) =>
+                "afternoon" === props.todo[key].when ? (
+                    <View key={key} style={styles.todo}>
+                        <Text style={styles.todoText}>{props.todo[key].text}</Text>
+                        <TouchableOpacity onPress={() => props.deleteTodo(key)}>
+                            <Text>❌</Text>
+                        </TouchableOpacity>
+                    </View>
+                ) : null
+            )}
             <View style={styles.todos}>
                 <TextInput
                     onChangeText={(e) => setNewAfternoon(e)}
@@ -47,6 +66,16 @@ export default function Todo(props) {
                 ></TextInput>
             </View>
             <Text style={styles.title}>야간</Text>
+            {Object.keys(props.todo).map((key) =>
+                "night" === props.todo[key].when ? (
+                    <View key={key} style={styles.todo}>
+                        <Text style={styles.todoText}>{props.todo[key].text}</Text>
+                        <TouchableOpacity onPress={() => props.deleteTodo(key)}>
+                            <Text>❌</Text>
+                        </TouchableOpacity>
+                    </View>
+                ) : null
+            )}
             <View style={styles.todos}>
                 <TextInput
                     onChangeText={(e) => setNewNight(e)}
@@ -70,8 +99,8 @@ export default function Todo(props) {
 
 const styles = StyleSheet.create({
     container: {
-        flex:1,
-        paddingTop: 40,
+        flex: 1,
+        paddingTop: 30,
     },
     todos: {
         minHeight: 100,
@@ -88,4 +117,13 @@ const styles = StyleSheet.create({
     plusButton: {
         marginTop: 10,
     },
+    todo: {
+        marginTop:10,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+    },
+    todoText:{
+        fontSize:18
+    }
 });
