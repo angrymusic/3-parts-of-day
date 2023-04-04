@@ -14,7 +14,7 @@ export default function Todo(props) {
                     <View key={key} style={styles.todo}>
                         <Text style={styles.todoText}>{props.todo[key].text}</Text>
                         <TouchableOpacity onPress={() => props.deleteTodo(key)}>
-                            <Text>❌</Text>
+                            <AntDesign name="close" size={24} color="gray" />
                         </TouchableOpacity>
                     </View>
                 ) : null
@@ -43,7 +43,7 @@ export default function Todo(props) {
                     <View key={key} style={styles.todo}>
                         <Text style={styles.todoText}>{props.todo[key].text}</Text>
                         <TouchableOpacity onPress={() => props.deleteTodo(key)}>
-                            <Text>❌</Text>
+                            <AntDesign name="close" size={24} color="gray" />
                         </TouchableOpacity>
                     </View>
                 ) : null
@@ -71,7 +71,7 @@ export default function Todo(props) {
                     <View key={key} style={styles.todo}>
                         <Text style={styles.todoText}>{props.todo[key].text}</Text>
                         <TouchableOpacity onPress={() => props.deleteTodo(key)}>
-                            <Text>❌</Text>
+                            <AntDesign name="close" size={24} color="gray" />
                         </TouchableOpacity>
                     </View>
                 ) : null
@@ -118,12 +118,12 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     todo: {
-        marginTop:10,
+        marginTop: 10,
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
     },
-    todoText:{
-        fontSize:18
-    }
+    todoText: {
+        fontSize: 18,
+    },
 });
