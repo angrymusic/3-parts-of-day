@@ -7,7 +7,7 @@ export default function Todo(props) {
     const [newAfternoon, setNewAfternoon] = useState("");
     const [newNight, setNewNight] = useState("");
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <Text style={styles.title}>오전</Text>
             <View style={styles.todos}>
                 <TextInput
@@ -64,14 +64,14 @@ export default function Todo(props) {
                     style={styles.input}
                 ></TextInput>
             </View>
-        </View>
+        </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        margin: 20,
-        flex: 1,
+        flex:1,
+        paddingTop: 40,
     },
     todos: {
         minHeight: 100,

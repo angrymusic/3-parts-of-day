@@ -2,7 +2,6 @@ import "react-native-gesture-handler";
 import { useState, useEffect } from "react";
 import { StyleSheet, Text, Button, View, SafeAreaView, ScrollView } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { FontAwesome } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { Drawer } from "react-native-drawer-layout";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -104,9 +103,15 @@ export default function App() {
                     color="black"
                 />
             </SafeAreaView>
-            <ScrollView style={styles.container}>
+            <View style={styles.todoWrapper}>
+                <View style={styles.arrowButton}>
+                    <AntDesign style={styles.arrowButton} name="left" size={24} color="black" />
+                </View>
                 <Todo todo={todayTodo} addTodo={addTodo} />
-            </ScrollView>
+                <View style={styles.arrowButton}>
+                    <AntDesign style={styles.arrowButton} name="right" size={24} color="black" />
+                </View>
+            </View>
         </Drawer>
     );
 }
@@ -114,6 +119,11 @@ export default function App() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: "#E8EAD6",
+    },
+    todoWrapper: {
+        flex: 1,
+        flexDirection: "row",
         backgroundColor: "#E8EAD6",
     },
     topBar: {
@@ -131,5 +141,9 @@ const styles = StyleSheet.create({
     sideButton: {
         paddingRight: 10,
         paddingBottom: 10,
+    },
+    arrowButton: {
+        padding: 3,
+        justifyContent: "center",
     },
 });
