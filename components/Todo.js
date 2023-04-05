@@ -164,6 +164,7 @@ const styles = StyleSheet.create({
     },
     todoText: {
         fontSize: 18,
+        fontWeight: 600,
     },
     row: {
         flexDirection: "row",
