@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
         paddingTop: 30,
     },
     todos: {
-        minHeight: 100,
+        minHeight: 60,
     },
     title: {
         fontWeight: 700,
