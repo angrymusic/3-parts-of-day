@@ -9,29 +9,30 @@ export default function Todo(props) {
     return (
         <ScrollView style={styles.container}>
             <Text style={styles.title}>오전</Text>
-            {Object.keys(props.todo).map((key) =>
-                "morning" === props.todo[key].when ? (
-                    <View key={key} style={styles.todo}>
-                        <Text
-                            style={{
-                                ...styles.todoText,
-                                textDecorationLine: props.todo[key].clear ? "line-through" : "none",
-                            }}
-                        >
-                            {props.todo[key].text}
-                        </Text>
-                        <View style={styles.row}>
-                            <TouchableOpacity style={styles.button} onPress={() => props.clearTodo(key)}>
-                                <AntDesign name="check" size={24} color="#99DBA0" />
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => props.deleteTodo(key)}>
-                                <AntDesign name="close" size={24} color="#F06B6E" />
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                ) : null
-            )}
+
             <View style={styles.todos}>
+                {Object.keys(props.todo).map((key) =>
+                    "morning" === props.todo[key].when ? (
+                        <View key={key} style={styles.todo}>
+                            <Text
+                                style={{
+                                    ...styles.todoText,
+                                    textDecorationLine: props.todo[key].clear ? "line-through" : "none",
+                                }}
+                            >
+                                {props.todo[key].text}
+                            </Text>
+                            <View style={styles.row}>
+                                <TouchableOpacity style={styles.button} onPress={() => props.clearTodo(key)}>
+                                    <AntDesign name="check" size={24} color="#99DBA0" />
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => props.deleteTodo(key)}>
+                                    <AntDesign name="close" size={24} color="#F06B6E" />
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    ) : null
+                )}
                 <TextInput
                     onChangeText={(e) => setNewMorning(e)}
                     onSubmitEditing={() => {
@@ -50,29 +51,30 @@ export default function Todo(props) {
             </View>
 
             <Text style={styles.title}>오후</Text>
-            {Object.keys(props.todo).map((key) =>
-                "afternoon" === props.todo[key].when ? (
-                    <View key={key} style={styles.todo}>
-                        <Text
-                            style={{
-                                ...styles.todoText,
-                                textDecorationLine: props.todo[key].clear ? "line-through" : "none",
-                            }}
-                        >
-                            {props.todo[key].text}
-                        </Text>
-                        <View style={styles.row}>
-                            <TouchableOpacity style={styles.button} onPress={() => props.clearTodo(key)}>
-                                <AntDesign name="check" size={24} color="#99DBA0" />
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => props.deleteTodo(key)}>
-                                <AntDesign name="close" size={24} color="#F06B6E" />
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                ) : null
-            )}
+
             <View style={styles.todos}>
+                {Object.keys(props.todo).map((key) =>
+                    "afternoon" === props.todo[key].when ? (
+                        <View key={key} style={styles.todo}>
+                            <Text
+                                style={{
+                                    ...styles.todoText,
+                                    textDecorationLine: props.todo[key].clear ? "line-through" : "none",
+                                }}
+                            >
+                                {props.todo[key].text}
+                            </Text>
+                            <View style={styles.row}>
+                                <TouchableOpacity style={styles.button} onPress={() => props.clearTodo(key)}>
+                                    <AntDesign name="check" size={24} color="#99DBA0" />
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => props.deleteTodo(key)}>
+                                    <AntDesign name="close" size={24} color="#F06B6E" />
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    ) : null
+                )}
                 <TextInput
                     onChangeText={(e) => setNewAfternoon(e)}
                     onSubmitEditing={() => {
@@ -90,29 +92,30 @@ export default function Todo(props) {
                 ></TextInput>
             </View>
             <Text style={styles.title}>야간</Text>
-            {Object.keys(props.todo).map((key) =>
-                "night" === props.todo[key].when ? (
-                    <View key={key} style={styles.todo}>
-                        <Text
-                            style={{
-                                ...styles.todoText,
-                                textDecorationLine: props.todo[key].clear ? "line-through" : "none",
-                            }}
-                        >
-                            {props.todo[key].text}
-                        </Text>
-                        <View style={styles.row}>
-                            <TouchableOpacity style={styles.button} onPress={() => props.clearTodo(key)}>
-                                <AntDesign name="check" size={24} color="#99DBA0" />
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => props.deleteTodo(key)}>
-                                <AntDesign name="close" size={24} color="#F06B6E" />
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                ) : null
-            )}
+
             <View style={styles.todos}>
+                {Object.keys(props.todo).map((key) =>
+                    "night" === props.todo[key].when ? (
+                        <View key={key} style={styles.todo}>
+                            <Text
+                                style={{
+                                    ...styles.todoText,
+                                    textDecorationLine: props.todo[key].clear ? "line-through" : "none",
+                                }}
+                            >
+                                {props.todo[key].text}
+                            </Text>
+                            <View style={styles.row}>
+                                <TouchableOpacity style={styles.button} onPress={() => props.clearTodo(key)}>
+                                    <AntDesign name="check" size={24} color="#99DBA0" />
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => props.deleteTodo(key)}>
+                                    <AntDesign name="close" size={24} color="#F06B6E" />
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    ) : null
+                )}
                 <TextInput
                     onChangeText={(e) => setNewNight(e)}
                     onSubmitEditing={() => {
@@ -139,7 +142,7 @@ const styles = StyleSheet.create({
         paddingTop: 30,
     },
     todos: {
-        minHeight: 60,
+        minHeight: 100,
     },
     title: {
         fontWeight: 700,
@@ -147,7 +150,7 @@ const styles = StyleSheet.create({
     },
     input: {
         paddingTop: 10,
-        paddingBottom: 7,
+        paddingBottom: 14,
         fontSize: 18,
     },
     plusButton: {
