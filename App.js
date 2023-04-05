@@ -8,6 +8,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Drawer } from "react-native-drawer-layout";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Todo from "./components/Todo";
+import Goals from "./components/Goals";
 
 const STORAGE_TODOS_KEY = "@todos";
 const STORAGE_GOALS_KEY = "@goals";
@@ -26,8 +27,6 @@ export default function App() {
     const saveTodos = async (data) => {
         try {
             await AsyncStorage.setItem(STORAGE_TODOS_KEY, JSON.stringify(Object.fromEntries(data)));
-            console.log("save");
-            console.log(Object.fromEntries(data));
         } catch (e) {
             console.log(e);
         }
@@ -40,8 +39,6 @@ export default function App() {
             const data = await AsyncStorage.getItem(STORAGE_TODOS_KEY);
             if (data) {
                 setTodos(new Map(Object.entries(JSON.parse(data))));
-                console.log("load");
-                console.log(JSON.parse(data));
             }
         } catch (e) {
             console.log(e);
@@ -69,10 +66,20 @@ export default function App() {
         if (newTodo === "") {
             return;
         } else {
-            const newMemo = { ...todos.get(dayKey), [Date.now()]: { text: newTodo, when: when } };
+            const newMemo = { ...todos.get(dayKey), [Date.now()]: { text: newTodo, when: when, clear: false } };
             setTodos((prev) => new Map(prev).set(dayKey, newMemo));
             const newMap = new Map(todos).set(dayKey, newMemo);
             await saveTodos(newMap);
+        }
+    };
+    //새로 목표 추가 하기
+    const addGoal = async (newGoal, when) => {
+        if (newGoal === "") {
+            return;
+        } else {
+            const newGoals = { ...goals, [Date.now()]: { text: newGoal, when: when, clear: false } };
+            setGoals(newGoals);
+            await saveGoals(newGoals);
         }
     };
     const deleteTodo = (id) => {
@@ -95,7 +102,37 @@ export default function App() {
             ]);
         }
     };
+    const deleteGoal = (id) => {
+        Alert.alert("삭제할까요?", "정말로요?", [
+            {
+                text: "네",
+                onPress: () => {
+                    const newGoals = { ...goals };
+                    delete newGoals[id];
 
+                    setGoals(newGoals);
+                    saveGoals(newGoals);
+                },
+            },
+            {
+                text: "아니요",
+            },
+        ]);
+    };
+    //할 일 클리어
+    const clearTodo = (id) => {
+        const newMemo = todos.get(dayKey);
+        newMemo[id].clear = !newMemo[id].clear;
+        setTodos((prev) => new Map(prev).set(dayKey, newMemo));
+        saveTodos(todos);
+    };
+    //목표 클리어
+    const clearGoal = (id) => {
+        const newGoals = { ...goals };
+        newGoals[id].clear = !newGoals[id].clear;
+        setGoals(newGoals);
+        saveGoals(newGoals);
+    };
     //화면 상단에 표시할 날짜와 input된 날짜로 기반한 스토리지 조회에 사용될 키 이름 생성
     const getDay = (today) => {
         if (!today) {
@@ -124,18 +161,21 @@ export default function App() {
 
         setTodayTodo(todos.get(dayKey));
     };
+    //현재 날짜에서 다음날로 이동
     const goTomorrow = () => {
         setDayCursor(new Date(dayCursor.setDate(dayCursor.getDate() + 1)));
         getDay(dayCursor);
         setTopColor((prev) => !prev);
     };
-
+    //현재 날짜에서 이전날로 이동
     const goYesterday = () => {
         setDayCursor(new Date(dayCursor.setDate(dayCursor.getDate() - 1)));
         getDay(dayCursor);
         setTopColor((prev) => !prev);
     };
 
+
+    //로컬데이터 모두 삭제
     const deleteAll = () => {
         Alert.alert("모든 데이터 삭제할까요?", "되돌릴 수 없습니다.", [
             {
@@ -143,6 +183,7 @@ export default function App() {
                 onPress: () => {
                     AsyncStorage.clear();
                     setTodos(new Map());
+                    setGoals({});
                 },
             },
             {
@@ -171,7 +212,8 @@ export default function App() {
             renderDrawerContent={() => {
                 return (
                     <SafeAreaView style={styles.container}>
-                        <Text style={styles.title}>할 일</Text>
+                        <Text style={styles.title}>목 표</Text>
+                        <Goals goals={goals} addGoal={addGoal} deleteGoal={deleteGoal} clearGoal={clearGoal}></Goals>
                     </SafeAreaView>
                 );
             }}
@@ -186,7 +228,7 @@ export default function App() {
                             onPress={deleteAll}
                             name="delete"
                             size={24}
-                            color="#A0AFA1"
+                            color="#3D4A3E"
                         />
                     </TouchableOpacity>
                 </View>
@@ -204,7 +246,9 @@ export default function App() {
                 <TouchableOpacity style={styles.arrowButton} onPress={goYesterday}>
                     <Entypo style={styles.arrowButton} name="chevron-thin-left" size={28} color="black" />
                 </TouchableOpacity>
-                <Todo todo={todayTodo} addTodo={addTodo} deleteTodo={deleteTodo} />
+
+                <Todo todo={todayTodo} addTodo={addTodo} deleteTodo={deleteTodo} clearTodo={clearTodo} />
+
                 <TouchableOpacity style={styles.arrowButton} onPress={goTomorrow}>
                     <Entypo style={styles.arrowButton} name="chevron-thin-right" size={28} color="black" />
                 </TouchableOpacity>
