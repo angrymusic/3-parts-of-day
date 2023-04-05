@@ -53,7 +53,14 @@ export default function Todo(props) {
             {Object.keys(props.todo).map((key) =>
                 "afternoon" === props.todo[key].when ? (
                     <View key={key} style={styles.todo}>
-                        <Text style={styles.todoText}>{props.todo[key].text}</Text>
+                        <Text
+                            style={{
+                                ...styles.todoText,
+                                textDecorationLine: props.todo[key].clear ? "line-through" : "none",
+                            }}
+                        >
+                            {props.todo[key].text}
+                        </Text>
                         <View style={styles.row}>
                             <TouchableOpacity style={styles.button} onPress={() => props.clearTodo(key)}>
                                 <AntDesign name="check" size={24} color="#99DBA0" />
@@ -86,7 +93,14 @@ export default function Todo(props) {
             {Object.keys(props.todo).map((key) =>
                 "night" === props.todo[key].when ? (
                     <View key={key} style={styles.todo}>
-                        <Text style={styles.todoText}>{props.todo[key].text}</Text>
+                        <Text
+                            style={{
+                                ...styles.todoText,
+                                textDecorationLine: props.todo[key].clear ? "line-through" : "none",
+                            }}
+                        >
+                            {props.todo[key].text}
+                        </Text>
                         <View style={styles.row}>
                             <TouchableOpacity style={styles.button} onPress={() => props.clearTodo(key)}>
                                 <AntDesign name="check" size={24} color="#99DBA0" />
