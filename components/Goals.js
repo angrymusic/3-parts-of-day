@@ -67,8 +67,8 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     goalText: {
-        textDecorationLine: "line-through",
         fontSize: 18,
+        fontWeight: 500,
     },
     row: {
         flexDirection: "row",
