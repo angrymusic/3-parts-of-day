@@ -102,6 +102,7 @@ export default function App() {
             ]);
         }
     };
+    //목표 삭제
     const deleteGoal = (id) => {
         Alert.alert("삭제할까요?", "정말로요?", [
             {
@@ -118,6 +119,19 @@ export default function App() {
                 text: "아니요",
             },
         ]);
+    };
+    const updateTodo = (id, newText) => {
+        const newMemo = todos.get(dayKey);
+        newMemo[id].text = newText;
+        setTodos((prev) => new Map(prev).set(dayKey, newMemo));
+        saveTodos(todos);
+    };
+    const updateGoal = (id, newText) => {
+        const newGoals = { ...goals };
+        newGoals[id].text = newText;
+
+        setGoals(newGoals);
+        saveGoals(newGoals);
     };
     //할 일 클리어
     const clearTodo = (id) => {
@@ -174,7 +188,6 @@ export default function App() {
         setTopColor((prev) => !prev);
     };
 
-
     //로컬데이터 모두 삭제
     const deleteAll = () => {
         Alert.alert("모든 데이터 삭제할까요?", "되돌릴 수 없습니다.", [
@@ -213,7 +226,13 @@ export default function App() {
                 return (
                     <SafeAreaView style={styles.container}>
                         <Text style={styles.title}>목 표</Text>
-                        <Goals goals={goals} addGoal={addGoal} deleteGoal={deleteGoal} clearGoal={clearGoal}></Goals>
+                        <Goals
+                            goals={goals}
+                            addGoal={addGoal}
+                            deleteGoal={deleteGoal}
+                            clearGoal={clearGoal}
+                            updateGoal={updateGoal}
+                        ></Goals>
                     </SafeAreaView>
                 );
             }}
@@ -247,7 +266,7 @@ export default function App() {
                     <Entypo style={styles.arrowButton} name="chevron-thin-left" size={28} color="black" />
                 </TouchableOpacity>
 
-                <Todo todo={todayTodo} addTodo={addTodo} deleteTodo={deleteTodo} clearTodo={clearTodo} />
+                <Todo todo={todayTodo} addTodo={addTodo} deleteTodo={deleteTodo} clearTodo={clearTodo} updateTodo={updateTodo} />
 
                 <TouchableOpacity style={styles.arrowButton} onPress={goTomorrow}>
                     <Entypo style={styles.arrowButton} name="chevron-thin-right" size={28} color="black" />

@@ -1,29 +1,65 @@
-import { useState, useEffect } from "react";
-import { StyleSheet, Text, TextInput, Button, View, SafeAreaView, ScrollView, TouchableOpacity } from "react-native";
+import { useState } from "react";
+import { StyleSheet, Text, TextInput, Keyboard, View, ScrollView, TouchableOpacity } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 
 export default function Goals(props) {
     const [newGoal, setNewGoal] = useState("");
+    const [updateToggle, setUpdateToggle] = useState({});
+    const [updateText, setUpdateText] = useState("");
     return (
         <ScrollView style={styles.container}>
             {Object.keys(props.goals).map((key) => (
-                <View key={key} style={styles.goal}>
-                    <Text
-                        style={{
-                            ...styles.goalText,
-                            textDecorationLine: props.goals[key].clear ? "line-through" : "none",
-                        }}
-                    >
-                        {props.goals[key].text}
-                    </Text>
-                    <View style={styles.row}>
-                        <TouchableOpacity style={styles.button} onPress={() => props.clearGoal(key)}>
-                            <AntDesign name="check" size={24} color="#99DBA0" />
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => props.deleteGoal(key)}>
-                            <AntDesign name="close" size={24} color="#F06B6E" />
-                        </TouchableOpacity>
+                <View key={key}>
+                    <View style={styles.goal}>
+                        <Text
+                            style={{
+                                ...styles.goalText,
+                                textDecorationLine: props.goals[key].clear ? "line-through" : "none",
+                            }}
+                        >
+                            {props.goals[key].text}
+                        </Text>
+                        <View style={styles.row}>
+                            <TouchableOpacity
+                                style={styles.button}
+                                onPress={() => {
+                                    const newUpdateToggle = { ...updateToggle };
+                                    for (let k in newUpdateToggle) {
+                                        if (key !== k) {
+                                            newUpdateToggle[k] = false;
+                                        }
+                                    }
+                                    newUpdateToggle[key] = !newUpdateToggle[key];
+                                    setUpdateToggle(newUpdateToggle);
+                                }}
+                            >
+                                <AntDesign name="reload1" size={20} color="#24B2FF" />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.button} onPress={() => props.clearGoal(key)}>
+                                <AntDesign name="check" size={24} color="#99DBA0" />
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => props.deleteGoal(key)}>
+                                <AntDesign name="close" size={24} color="#F06B6E" />
+                            </TouchableOpacity>
+                        </View>
                     </View>
+                    {updateToggle[key] && (
+                        <TextInput
+                            onChangeText={(e) => setUpdateText(e)}
+                            onSubmitEditing={() => {
+                                if (updateText !== "") {
+                                    props.updateGoal(key, updateText);
+                                }
+                                setUpdateText("");
+                                setUpdateToggle(false);
+                            }}
+                            returnKeyType="done"
+                            value={updateText}
+                            placeholder={" " + props.goals[key].text}
+                            style={styles.input}
+                        ></TextInput>
+                    )}
                 </View>
             ))}
             <TextInput
@@ -31,6 +67,13 @@ export default function Goals(props) {
                 onSubmitEditing={() => {
                     props.addGoal(newGoal);
                     setNewGoal("");
+                }}
+                onFocus={() => {
+                    const newUpdateToggle = { ...updateToggle };
+                    for (let k in newUpdateToggle) {
+                        newUpdateToggle[k] = false;
+                    }
+                    setUpdateToggle(newUpdateToggle);
                 }}
                 returnKeyType="done"
                 value={newGoal}
