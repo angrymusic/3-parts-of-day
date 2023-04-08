@@ -57,7 +57,7 @@ export default function Goals(props) {
                             returnKeyType="done"
                             value={updateText}
                             placeholder={" " + props.goals[key].text}
-                            style={styles.input}
+                            style={styles.updateInput}
                         ></TextInput>
                     )}
                 </View>
@@ -98,6 +98,15 @@ const styles = StyleSheet.create({
     input: {
         padding: 10,
         fontSize: 18,
+    },
+    updateInput: {
+        margin: 10,
+        paddingVertical: 5,
+        paddingHorizontal: 7,
+        marginBottom: 10,
+        fontSize: 18,
+        borderColor: "#24B2FF",
+        borderBottomWidth: 1.5,
     },
     plusButton: {
         marginTop: 10,
