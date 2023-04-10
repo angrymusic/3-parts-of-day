@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { StyleSheet, Text, TextInput, Button, View, SafeAreaView, ScrollView, TouchableOpacity } from "react-native";
+import { useState } from "react";
+import { StyleSheet, Text, TextInput, View, ScrollView, TouchableOpacity } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
 export default function Todo(props) {

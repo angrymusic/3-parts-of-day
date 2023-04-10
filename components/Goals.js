@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { StyleSheet, Text, TextInput, Keyboard, View, ScrollView, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, TextInput, View, ScrollView, TouchableOpacity } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-import { Feather } from "@expo/vector-icons";
 
 export default function Goals(props) {
     const [newGoal, setNewGoal] = useState("");

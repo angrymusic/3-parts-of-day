@@ -1,6 +1,6 @@
 import "react-native-gesture-handler";
 import { useState, useEffect } from "react";
-import { StyleSheet, Text, Button, View, SafeAreaView, Alert, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView, Alert, TouchableOpacity } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
@@ -23,7 +23,7 @@ export default function App() {
     const [dayKey, setDayKey] = useState("");
     const [topColor, setTopColor] = useState(false);
     //input으로 들어온 map 형식의 data를 json으로 바꾼 후 string으로 바꾼 후 저장
-    //map -> json -> string
+    //map -> json 객체 -> json string
     const saveTodos = async (data) => {
         try {
             await AsyncStorage.setItem(STORAGE_TODOS_KEY, JSON.stringify(Object.fromEntries(data)));
@@ -33,7 +33,7 @@ export default function App() {
     };
 
     //string형식의 데이터를 다시 가져옴
-    //string -> json -> map
+    //json string -> json 객체 -> map
     const loadTodos = async () => {
         try {
             const data = await AsyncStorage.getItem(STORAGE_TODOS_KEY);
