@@ -11,6 +11,7 @@ export default function Todo(props) {
     const [updateNightToggle, setUpdateNightToggle] = useState({});
     const [updateText, setUpdateText] = useState("");
 
+    //해당키의 toggle만 ture
     const allUpdateToggleOffNotMe = (when, key) => {
         for (let k in when) {
             if (key !== k) {
@@ -18,6 +19,7 @@ export default function Todo(props) {
             }
         }
     };
+    //다른 시간대의 toggle들은 false
     const morningUpdateToggleOff = () => {
         for (let k in updateMorningToggle) {
             updateMorningToggle[k] = false;
