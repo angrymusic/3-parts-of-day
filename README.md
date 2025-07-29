@@ -4,4 +4,4 @@
 
 😌 기존에 내가 공책에 쓰던 계획일지를 앱으로 만들어보는 프로젝트
 
-https://angrymusic.notion.site/3-Parts-of-day-85721713ee144f1985628ce0e682460a
+[https://angrymusic.notion.site/3-Parts-of-day-85721713ee144f1985628ce0e682460a](https://angrymusic.notion.site/3-Parts-of-day-85721713ee144f1985628ce0e682460a?source=copy_link)
